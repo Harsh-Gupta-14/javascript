@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Site</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    .main{
+        background-color: rgb(0, 183, 255);
+        margin: 12% 0 0 33%;
+        width: 30%;
+        height: 500px;
+        border-radius: 10px;
+        
+    }
+    h1{
+        margin: 10% 0  0 70%;
+        /* text-align: right; */
+    }
+    input{
+        margin: 10px 0 0 70%;
+        /* float: right; */
+    }
+   
+    body{
+           background-image:url(./image/bg3.jpg);
+           background-repeat: no-repeat;
+           width: 100%;
+           background-size: cover;
+           background-position: top;
+    }
+    #content{
+          float: right;
+          margin: 3% 12% 0 0;
+    }
+  </style>
+</head>
+<body>
+    <!-- <div class="Image">
+        <img src="./image/bg1.jpg">
+    </div> -->
+    <!-- <div class="main"> -->
+<h1 >Weather Application</h1>
+<input type="text" id="city">
+<button class="btn btn-primary" id="getWeather" >Get Weather</button>
+<div id="content"></div>
+<!-- </div> -->
+<script>
+        // const iconCode = data.weather[0].icon;
+        // const iconURL = `https://openweathermap.org/img/wn/${data.weather.icon}@2x.png`;
+        // const Temperature = data.main.temp
+              // Temperature = Temperature-273;
+        // const iconURL = "./image/clear.png"
+        // if (Temperature < 0) {
+        //         iconURL = "./image/snow.png"; // Freezing
+        //     } else if (Temperature >= 0 && Temperature < 15) {
+        //         iconURL = "./image/clouds.png"; // Cool weather
+        //     } else if (Temperature >= 15 && Temperature < 30) {
+        //         iconURL = "./image/mist.png"; // Warm weather
+        //     } else {
+        //         iconURL = "./image/clear.png"; // Hot weather
+        //     }
+      
+       function renderData(data){
+
+           const Temperature = data.main.temp - 273
+          //  const Description = data.weather.description
+           let iconURL;
+           if (Temperature < 0) {
+                iconURL = "./image/snow.png"; // Freezing
+            } else if (Temperature >= 0 && Temperature < 15) {
+                iconURL = "./image/cold2.png"; // Cool weather
+            } else if (Temperature >= 15 && Temperature < 30) {
+                iconURL = "./image/mist.png"; // Warm weather
+            } else {
+                iconURL = "./image/clear.png"; // Hot weather
+            }
+
+         document.getElementById('content').innerHTML = `
+                  <h3 style="margin-left="30%"">${data.name}<span class="pl-4 text-danger">${data.sys.country}</span></h3>
+                  <h4>Temp: ${Temperature}°C</h4>
+                  <p>Wind: ${data.wind.speed}Kph</p>
+        
+                  <img src="${iconURL}">
+          
+           `
+
+           
+       } 
+
+      function fetchAPI(){
+        city = document.getElementById('city').value
+        fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=ab2c80fedc619393801f0891b25cdaab`)
+        .then(response=>response.json())
+        .then(data=>renderData(data))
+        .catch(error=>console.log(error));
+      }
+
+      document.getElementById('getWeather').addEventListener('click',fetchAPI)
+</script>
+</body>
+</html>

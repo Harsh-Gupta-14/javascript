@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1><span id="hr"></span>:<span id="min"></span>:<span id="sec"></span></h1>
+    <button id="stopClock">Stop</button>
+    <button id="startClock">Start</button>
+
+
+    <script>
+        function digiClock(){
+            today = new Date()
+            console.log(today)
+
+            hr = today.getHours()
+            console.log(hr)
+            document.getElementById('hr').innerHTML=hr
+
+            min = today.getMinutes()
+            console.log(hr)
+            document.getElementById('min').innerHTML=min
+
+            sec = today.getSeconds()
+            console.log(hr)
+            document.getElementById('sec').innerHTML=sec
+        }
+            
+        digiClock();
+
+        function forInterval(){
+            startClock = setInterval(digiClock, 1000);
+        }
+
+        forInterval()
+
+        document.getElementById('stopClock').addEventListener('click',()=>{
+        clearInterval(startClock)
+    })
+
+     document.getElementById('startClock').addEventListener('click',forInterval)
+
+    </script>
+</body>
+</html>

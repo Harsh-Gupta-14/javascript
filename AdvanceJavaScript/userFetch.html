@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="content"></ul>
+    <script>
+           function renderOnBrowser(data){
+            console.log(data)
+            document.getElementById('content').innerHTML = data.map((user , index) =>`
+                  <li>${user.name.first}</li>
+            `).join('')
+           }
+
+           fetch('https://randomuser.me/api/?results=5')
+            .then(response=>response.json())
+            .then(data=>renderOnBrowser(data.results))
+            .catch(error=>console.log(error));
+        
+    </script>
+</body>
+</html>
